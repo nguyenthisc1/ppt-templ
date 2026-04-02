@@ -1,5 +1,13 @@
 # Frontend Conventions
 
+## Setup Rules
+
+- Commit `.editorconfig`, `.gitignore`, and the base lint config at project start.
+- Keep formatting rules simple and shared across editors.
+- Limit lint tooling to code we own; do not lint vendored assets.
+- Treat Node tooling as optional support for frontend quality checks unless a real asset pipeline is introduced.
+- Document setup commands in `README.md` and keep an example setup flow in `docs/setup-project-example.md`.
+
 ## Layout Rules
 
 - All pages should render through `layout.Base`.

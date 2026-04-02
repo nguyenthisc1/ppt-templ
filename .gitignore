@@ -1,0 +1,21 @@
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Node / frontend tooling
+node_modules/
+npm-debug.log*
+
+# Build output
+bin/
+dist/
+coverage/
+
+# Go
+*.test
+*.out
+
+# Local env
+.env
+.env.local

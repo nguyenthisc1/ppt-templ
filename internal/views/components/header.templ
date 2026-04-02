@@ -1,16 +1,40 @@
 package components
 
 type NavItem struct {
-	Label string
-	Href  string
-	Key   string
+	Label    string
+	Href     string
+	Key      string
+	Children []NavItem
 }
 
 func navItems() []NavItem {
 	return []NavItem{
 		{Label: "Home", Href: "/", Key: "Home"},
-		{Label: "About", Href: "/about", Key: "About"},
-		{Label: "Contact", Href: "/contact", Key: "Contact"},
+		{
+			Label: "Listings",
+			Href:  "/listings",
+			Key:   "Listings",
+			Children: []NavItem{
+				{Label: "Sale", Href: "/listings?category=sale"},
+				{Label: "Rent", Href: "/listings?category=rent"},
+				{Label: "Featured", Href: "/listings?q=river"},
+			},
+		},
+		{
+			Label: "Projects",
+			Href:  "/projects",
+			Key:   "Projects",
+			Children: []NavItem{
+				{Label: "Pre-launch", Href: "/projects?status=pre-launch"},
+				{Label: "Launching", Href: "/projects?status=launching"},
+				{Label: "Ready", Href: "/projects?status=ready"},
+			},
+		},
+		{
+			Label: "News",
+			Href:  "/news",
+			Key:   "News",
+		},
 	}
 }
 
@@ -41,12 +65,29 @@ templ Header(currentTitle string) {
 			<nav class="nav" id="site-nav" data-nav>
 				<ul class="nav__list">
 					for _, item := range navItems() {
-						<li class="nav__item">
+						<li class={ navItemClass(item) }>
 							<a class={ navLinkClass(currentTitle, item) } href={ item.Href }>{ item.Label }</a>
+							if len(item.Children) > 0 {
+								<ul class="nav__sublist">
+									for _, child := range item.Children {
+										<li class="nav__subitem">
+											<a class="nav__sublink" href={ child.Href }>{ child.Label }</a>
+										</li>
+									}
+								</ul>
+							}
 						</li>
 					}
 				</ul>
 			</nav>
 		</div>
 	</header>
+}
+
+func navItemClass(item NavItem) string {
+	className := "nav__item"
+	if len(item.Children) > 0 {
+		className += " nav__item--has-children"
+	}
+	return className
 }

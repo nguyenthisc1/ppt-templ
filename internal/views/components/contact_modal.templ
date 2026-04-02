@@ -1,0 +1,52 @@
+package components
+
+templ ContactModal() {
+	<dialog class="contact-modal" data-contact-modal>
+		<div class="contact-modal__panel">
+			<button class="contact-modal__close" type="button" data-close-contact aria-label="Close contact form">Close</button>
+			<div class="contact-modal__layout">
+				<div class="contact-modal__media">
+					<img class="contact-modal__image" src="/assets/img/hero.avif" alt="Interior view of a premium property"/>
+					<div class="contact-modal__copy">
+						<p class="contact-modal__eyebrow">Property consultation</p>
+						<h2 class="contact-modal__title">Tell us what you are looking for.</h2>
+						<p class="contact-modal__body">Share a few details and our team will get back with matched listings, project suggestions, or a curated shortlist.</p>
+					</div>
+				</div>
+				<form class="contact-modal__form" method="dialog">
+					<div class="field-grid field-grid--two">
+						<label class="field">
+							<span class="field__label">Title</span>
+							<select class="field__control" name="title">
+								<option>Mr</option>
+								<option>Mrs</option>
+							</select>
+						</label>
+						<label class="field">
+							<span class="field__label">Full name</span>
+							<input class="field__control" type="text" name="name" placeholder="Nguyen Van A" required/>
+						</label>
+					</div>
+					<div class="field-grid field-grid--two">
+						<label class="field">
+							<span class="field__label">Phone</span>
+							<input class="field__control" type="tel" name="phone" placeholder="+84 90 123 4567" required/>
+						</label>
+						<label class="field">
+							<span class="field__label">Email</span>
+							<input class="field__control" type="email" name="email" placeholder="you@example.com" required/>
+						</label>
+					</div>
+					<label class="field">
+						<span class="field__label">Message</span>
+						<textarea class="field__control field__control--textarea" name="message" placeholder="I want a 2-bedroom rental in District 2 with river views."></textarea>
+					</label>
+					<div class="contact-modal__actions">
+						<button class="button button--secondary" type="button" data-close-contact>Cancel</button>
+						<button class="button button--primary" type="submit">Send inquiry</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</dialog>
+}

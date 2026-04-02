@@ -1,0 +1,66 @@
+package pages
+
+import (
+	"strconv"
+
+	"ppt-templ/internal/content"
+	"ppt-templ/internal/views/components"
+	"ppt-templ/internal/views/layout"
+)
+
+func projectFilterSelected(current string, value string) bool {
+	if current == "" && value == "all" {
+		return true
+	}
+	return current == value
+}
+
+templ Projects(siteName string, query string, status string, results []content.Project) {
+	@layout.Base(layout.PageProps{
+		Title:       "Projects",
+		Description: "Explore active, launching, and ready-to-move residential projects across prime districts.",
+		SiteName:    siteName,
+		BodyClass:   "page--projects",
+	}) {
+		<section class="section page-hero">
+			<div class="container narrow-stack">
+				<p class="section__eyebrow">Residential projects</p>
+				<h1 class="section__title">Track launches, ready inventory, and upcoming communities.</h1>
+				<p class="section__copy">Use the filters below to focus on project stages that match your buying timeline.</p>
+			</div>
+		</section>
+		<section class="section section--compact">
+			<div class="container">
+				<form class="filters" method="get" action="/projects">
+					<div class="filters__grid">
+						<label class="field">
+							<span class="field__label">Search</span>
+							<input class="field__control" type="search" name="q" value={ query } placeholder="Project name, district, or keyword"/>
+						</label>
+						<label class="field">
+							<span class="field__label">Project stage</span>
+							<select class="field__control" name="status">
+								<option value="all" selected?={ projectFilterSelected(status, "all") }>All stages</option>
+								<option value="pre-launch" selected?={ projectFilterSelected(status, "pre-launch") }>Pre-launch</option>
+								<option value="launching" selected?={ projectFilterSelected(status, "launching") }>Launching</option>
+								<option value="ready" selected?={ projectFilterSelected(status, "ready") }>Ready</option>
+							</select>
+						</label>
+						<div class="filters__actions">
+							<button class="button button--primary" type="submit">Apply filters</button>
+							<a class="button button--ghost" href="/projects">Reset</a>
+						</div>
+					</div>
+				</form>
+				<div class="results-meta">
+					<p class="results-meta__copy">{ strconv.Itoa(len(results)) } project(s) found</p>
+				</div>
+				<div class="project-grid">
+					for _, item := range results {
+						@components.ProjectCard(item)
+					}
+				</div>
+			</div>
+		</section>
+	}
+}

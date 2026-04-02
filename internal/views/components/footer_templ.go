@@ -8,8 +8,6 @@ package components
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "time"
-
 func Footer() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
@@ -31,20 +29,7 @@ func Footer() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<footer class=\"footer\"><div class=\"container footer__inner\"><div class=\"footer__meta\"><p class=\"footer__title\">PPT Templ Starter</p><p class=\"footer__copy\">Server-rendered pages with `templ`, progressive enhancement with `htmx`, and plain CSS conventions.</p></div><p class=\"footer__year\">© ")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var2 string
-		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(time.Now().Year())
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/components/footer.templ`, Line: 12, Col: 49}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</p></div></footer>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<footer class=\"footer\"><div class=\"container footer__shell\"><div class=\"footer__brand\"><a class=\"brand\" href=\"/\"><span class=\"brand__mark\">PT</span> <span class=\"brand__text\">PPT Templ Property</span></a><p class=\"footer__copy\">Curated listings, launch-stage projects, market news, and practical inquiry flows for clients exploring premium homes and investment-ready opportunities.</p></div><div class=\"footer__menus\"><div class=\"footer__group\"><p class=\"footer__heading\">Explore</p><a class=\"footer__link\" href=\"/\">Home</a> <a class=\"footer__link\" href=\"/listings\">Listings</a> <a class=\"footer__link\" href=\"/projects\">Projects</a> <a class=\"footer__link\" href=\"/news\">News</a></div><div class=\"footer__group\"><p class=\"footer__heading\">Listing types</p><a class=\"footer__link\" href=\"/listings?category=sale\">Properties for sale</a> <a class=\"footer__link\" href=\"/listings?category=rent\">Properties for rent</a> <a class=\"footer__link\" href=\"/projects?status=launching\">Launching projects</a></div><div class=\"footer__group\"><p class=\"footer__heading\">Company</p><a class=\"footer__link\" href=\"/news\">Insights</a> <a class=\"footer__link\" href=\"/listings\">Portfolio</a> <a class=\"footer__link\" href=\"/\">Contact</a></div></div></div><div class=\"container footer__bottom\"><p class=\"footer__legal\">Privacy Policy</p><p class=\"footer__year\">2024 © PPT Templ Property</p></div></footer>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -1,0 +1,72 @@
+package components
+
+import "ppt-templ/internal/content"
+
+templ ListingCard(item content.Listing) {
+	<article class="property-card">
+		<a class="property-card__media-link" href={ "/listings/" + item.Slug }>
+			<div class="property-card__media">
+				<img class="property-card__image" src={ item.Image } alt={ item.Title } loading="lazy"/>
+				<span class="property-card__badge">{ item.Badge }</span>
+				<span class="property-card__category">{ item.Category }</span>
+			</div>
+		</a>
+		<div class="property-card__body">
+			<p class="property-card__meta">{ item.Location }</p>
+			<h3 class="property-card__title">
+				<a class="property-card__title-link" href={ "/listings/" + item.Slug }>{ item.Title }</a>
+			</h3>
+			<p class="property-card__summary">{ item.Summary }</p>
+			<div class="property-card__stats">
+				<span class="property-card__stat">{ item.Beds } Beds</span>
+				<span class="property-card__stat">{ item.Baths } Baths</span>
+				<span class="property-card__stat">{ item.Area }</span>
+			</div>
+			<div class="property-card__footer">
+				<p class="property-card__price">{ item.PriceLabel }</p>
+				<div class="property-card__actions">
+					<a class="button button--ghost" href={ "/listings/" + item.Slug }>Details</a>
+					<button class="button button--ghost" type="button" data-open-contact>Contact</button>
+				</div>
+			</div>
+		</div>
+	</article>
+}
+
+templ ProjectCard(item content.Project) {
+	<article class="project-card">
+		<div class="project-card__media">
+			<img class="project-card__image" src={ item.Image } alt={ item.Title } loading="lazy"/>
+			<span class="project-card__status">{ item.Status }</span>
+		</div>
+		<div class="project-card__body">
+			<p class="project-card__meta">{ item.Location }</p>
+			<h3 class="project-card__title">{ item.Title }</h3>
+			<p class="project-card__summary">{ item.Summary }</p>
+			<div class="project-card__footer">
+				<div class="project-card__detail">
+					<span class="project-card__label">Delivery</span>
+					<span class="project-card__value">{ item.Delivery }</span>
+				</div>
+				<div class="project-card__detail">
+					<span class="project-card__label">Pricing</span>
+					<span class="project-card__value">{ item.PriceLabel }</span>
+				</div>
+			</div>
+		</div>
+	</article>
+}
+
+templ NewsCard(item content.Article) {
+	<article class="news-card">
+		<div class="news-card__media">
+			<img class="news-card__image" src={ item.Image } alt={ item.Title } loading="lazy"/>
+		</div>
+		<div class="news-card__body">
+			<p class="news-card__meta">{ item.Category } · { item.Published }</p>
+			<h3 class="news-card__title">{ item.Title }</h3>
+			<p class="news-card__summary">{ item.Summary }</p>
+			<a class="news-card__link" href="/news">Read more</a>
+		</div>
+	</article>
+}

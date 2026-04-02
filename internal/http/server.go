@@ -2,11 +2,12 @@ package webapp
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/a-h/templ"
 
+	"ppt-templ/internal/content"
 	"ppt-templ/internal/views/pages"
-	"ppt-templ/internal/views/partials"
 )
 
 type Config struct {
@@ -23,25 +24,36 @@ func NewServer(cfg Config) *http.ServeMux {
 	mux.HandleFunc("/", pageHandler(func() templ.Component {
 		return pages.Home(cfg.SiteName)
 	}))
-	mux.HandleFunc("/about", pageHandler(func() templ.Component {
-		return pages.About(cfg.SiteName)
-	}))
-	mux.HandleFunc("/contact", pageHandler(func() templ.Component {
-		return pages.Contact(cfg.SiteName)
-	}))
-	mux.HandleFunc("/fragments/highlight", func(w http.ResponseWriter, r *http.Request) {
-		audience := r.URL.Query().Get("audience")
-		if audience == "" {
-			audience = "founders"
-		}
+	mux.HandleFunc("/listings", func(w http.ResponseWriter, r *http.Request) {
+		query := r.URL.Query().Get("q")
+		category := r.URL.Query().Get("category")
 
-		if r.Header.Get("HX-Request") == "true" {
-			renderComponent(w, r, http.StatusOK, partials.HighlightPanel(audience))
+		renderComponent(w, r, http.StatusOK, pages.Listings(cfg.SiteName, query, category, content.FilterListings(query, category)))
+	})
+	mux.HandleFunc("/listings/", func(w http.ResponseWriter, r *http.Request) {
+		slug := strings.TrimPrefix(r.URL.Path, "/listings/")
+		if slug == "" || strings.Contains(slug, "/") {
+			http.NotFound(w, r)
 			return
 		}
 
-		renderComponent(w, r, http.StatusOK, pages.HighlightPreview(cfg.SiteName, audience))
+		item, ok := content.FindListingBySlug(slug)
+		if !ok {
+			http.NotFound(w, r)
+			return
+		}
+
+		renderComponent(w, r, http.StatusOK, pages.ListingDetail(cfg.SiteName, item))
 	})
+	mux.HandleFunc("/projects", func(w http.ResponseWriter, r *http.Request) {
+		query := r.URL.Query().Get("q")
+		status := r.URL.Query().Get("status")
+
+		renderComponent(w, r, http.StatusOK, pages.Projects(cfg.SiteName, query, status, content.FilterProjects(query, status)))
+	})
+	mux.HandleFunc("/news", pageHandler(func() templ.Component {
+		return pages.News(cfg.SiteName, content.News())
+	}))
 
 	return mux
 }

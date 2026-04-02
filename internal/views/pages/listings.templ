@@ -1,0 +1,65 @@
+package pages
+
+import (
+	"strconv"
+
+	"ppt-templ/internal/content"
+	"ppt-templ/internal/views/components"
+	"ppt-templ/internal/views/layout"
+)
+
+func listingFilterSelected(current string, value string) bool {
+	if current == "" && value == "all" {
+		return true
+	}
+	return current == value
+}
+
+templ Listings(siteName string, query string, category string, results []content.Listing) {
+	@layout.Base(layout.PageProps{
+		Title:       "Listings",
+		Description: "Search current sale and rental opportunities across premium homes, apartments, and investment-ready inventory.",
+		SiteName:    siteName,
+		BodyClass:   "page--listings",
+	}) {
+		<section class="section page-hero">
+			<div class="container narrow-stack">
+				<p class="section__eyebrow">Property listings</p>
+				<h1 class="section__title">Browse curated homes for sale and rent.</h1>
+				<p class="section__copy">Search by keyword or refine by listing type to quickly narrow the current portfolio.</p>
+			</div>
+		</section>
+		<section class="section section--compact">
+			<div class="container">
+				<form class="filters" method="get" action="/listings">
+					<div class="filters__grid">
+						<label class="field">
+							<span class="field__label">Search</span>
+							<input class="field__control" type="search" name="q" value={ query } placeholder="District, project, or property type"/>
+						</label>
+						<label class="field">
+							<span class="field__label">Listing type</span>
+							<select class="field__control" name="category">
+								<option value="all" selected?={ listingFilterSelected(category, "all") }>All listings</option>
+								<option value="sale" selected?={ listingFilterSelected(category, "sale") }>Sale</option>
+								<option value="rent" selected?={ listingFilterSelected(category, "rent") }>Rent</option>
+							</select>
+						</label>
+						<div class="filters__actions">
+							<button class="button button--primary" type="submit">Apply filters</button>
+							<a class="button button--ghost" href="/listings">Reset</a>
+						</div>
+					</div>
+				</form>
+				<div class="results-meta">
+					<p class="results-meta__copy">{ strconv.Itoa(len(results)) } listing(s) found</p>
+				</div>
+				<div class="property-grid">
+					for _, item := range results {
+						@components.ListingCard(item)
+					}
+				</div>
+			</div>
+		</section>
+	}
+}

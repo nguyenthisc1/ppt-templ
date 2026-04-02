@@ -1,0 +1,14 @@
+{
+  "name": "ppt-templ-property",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Linting helpers for the property starter's frontend JavaScript.",
+  "scripts": {
+    "lint:js": "eslint public/assets/js --no-error-on-unmatched-pattern",
+    "lint:js:fix": "eslint public/assets/js --fix --no-error-on-unmatched-pattern"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "eslint": "^9.24.0"
+  }
+}

@@ -1,0 +1,129 @@
+package pages
+
+import (
+	"strconv"
+
+	"ppt-templ/internal/content"
+	"ppt-templ/internal/views/layout"
+)
+
+templ ListingDetail(siteName string, item content.Listing) {
+	@layout.Base(layout.PageProps{
+		Title:       item.Title,
+		Description: item.Summary,
+		SiteName:    siteName,
+		BodyClass:   "page--listing-detail",
+	}) {
+		<section class="detail-hero">
+			<div class="container">
+				<div class="detail-hero__shell">
+					<div class="detail-hero__copy">
+						<p class="section__eyebrow">{ item.Badge } · { item.Location }</p>
+						<h1 class="detail-hero__title">{ item.Title }</h1>
+						<p class="detail-hero__body">{ item.Headline }</p>
+						<div class="detail-hero__stats">
+							<span class="detail-hero__stat">{ item.PriceLabel }</span>
+							<span class="detail-hero__stat">{ strconv.Itoa(item.Beds) } Beds</span>
+							<span class="detail-hero__stat">{ strconv.Itoa(item.Baths) } Baths</span>
+							<span class="detail-hero__stat">{ item.Area }</span>
+						</div>
+					</div>
+					<div class="detail-slider" data-slider>
+						<div class="detail-slider__viewport">
+							for index, image := range item.Gallery {
+								<div class="detail-slider__slide" data-slide data-active?={ index == 0 }>
+									<img class="detail-slider__image" src={ image } alt={ item.Title + " gallery image " + strconv.Itoa(index+1) }/>
+								</div>
+							}
+						</div>
+						<div class="detail-slider__controls">
+							<button class="detail-slider__button" type="button" data-slider-prev aria-label="Previous slide">Prev</button>
+							<div class="detail-slider__dots">
+								for index := range item.Gallery {
+									<button class="detail-slider__dot" type="button" data-slider-dot data-index={ strconv.Itoa(index) } aria-label={ "Go to slide " + strconv.Itoa(index+1) }></button>
+								}
+							</div>
+							<button class="detail-slider__button" type="button" data-slider-next aria-label="Next slide">Next</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container detail-layout">
+				<div class="detail-content">
+					<section class="detail-section">
+						<p class="section__eyebrow">Description</p>
+						<h2 class="detail-section__title">A listing page with clearer story, info, and options.</h2>
+						<p class="detail-section__body">{ item.Description }</p>
+					</section>
+
+					<section class="detail-section">
+						<p class="section__eyebrow">Property info</p>
+						<div class="detail-info">
+							for _, row := range item.Info {
+								<div class="detail-info__item">
+									<span class="detail-info__label">{ row.Label }</span>
+									<span class="detail-info__value">{ row.Value }</span>
+								</div>
+							}
+						</div>
+					</section>
+
+					<section class="detail-section">
+						<p class="section__eyebrow">Options</p>
+						<div class="detail-options">
+							for _, option := range item.Options {
+								<div class="detail-options__item">{ option }</div>
+							}
+						</div>
+					</section>
+
+					<section class="detail-section">
+						<p class="section__eyebrow">Highlights</p>
+						<ul class="detail-list">
+							for _, feature := range item.Features {
+								<li class="detail-list__item">{ feature }</li>
+							}
+						</ul>
+					</section>
+				</div>
+
+				<aside class="detail-sidebar">
+					<form class="detail-form">
+						<p class="detail-form__eyebrow">Request details</p>
+						<h2 class="detail-form__title">Ask about this listing</h2>
+						<p class="detail-form__body">Send a quick inquiry for pricing guidance, availability, floor plans, or a private viewing schedule.</p>
+						<div class="field-grid field-grid--two">
+							<label class="field">
+								<span class="field__label">Title</span>
+								<select class="field__control" name="title">
+									<option>Mr</option>
+									<option>Mrs</option>
+								</select>
+							</label>
+							<label class="field">
+								<span class="field__label">Name</span>
+								<input class="field__control" type="text" name="name" placeholder="Nguyen Van A"/>
+							</label>
+						</div>
+						<label class="field">
+							<span class="field__label">Phone</span>
+							<input class="field__control" type="tel" name="phone" placeholder="+84 90 123 4567"/>
+						</label>
+						<label class="field">
+							<span class="field__label">Email</span>
+							<input class="field__control" type="email" name="email" placeholder="you@example.com"/>
+						</label>
+						<label class="field">
+							<span class="field__label">Message</span>
+							<textarea class="field__control field__control--textarea" name="message" placeholder={ "I would like more details about " + item.Title + "." }></textarea>
+						</label>
+						<button class="button button--primary" type="submit">Send inquiry</button>
+					</form>
+				</aside>
+			</div>
+		</section>
+	}
+}

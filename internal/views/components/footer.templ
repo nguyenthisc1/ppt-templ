@@ -1,15 +1,40 @@
 package components
 
-import "time"
-
 templ Footer() {
 	<footer class="footer">
-		<div class="container footer__inner">
-			<div class="footer__meta">
-				<p class="footer__title">PPT Templ Starter</p>
-				<p class="footer__copy">Server-rendered pages with `templ`, progressive enhancement with `htmx`, and plain CSS conventions.</p>
+		<div class="container footer__shell">
+			<div class="footer__brand">
+				<a class="brand" href="/">
+					<span class="brand__mark">PT</span>
+					<span class="brand__text">PPT Templ Property</span>
+				</a>
+				<p class="footer__copy">Curated listings, launch-stage projects, market news, and practical inquiry flows for clients exploring premium homes and investment-ready opportunities.</p>
 			</div>
-			<p class="footer__year">© { time.Now().Year() }</p>
+			<div class="footer__menus">
+				<div class="footer__group">
+					<p class="footer__heading">Explore</p>
+					<a class="footer__link" href="/">Home</a>
+					<a class="footer__link" href="/listings">Listings</a>
+					<a class="footer__link" href="/projects">Projects</a>
+					<a class="footer__link" href="/news">News</a>
+				</div>
+				<div class="footer__group">
+					<p class="footer__heading">Listing types</p>
+					<a class="footer__link" href="/listings?category=sale">Properties for sale</a>
+					<a class="footer__link" href="/listings?category=rent">Properties for rent</a>
+					<a class="footer__link" href="/projects?status=launching">Launching projects</a>
+				</div>
+				<div class="footer__group">
+					<p class="footer__heading">Company</p>
+					<a class="footer__link" href="/news">Insights</a>
+					<a class="footer__link" href="/listings">Portfolio</a>
+					<a class="footer__link" href="/">Contact</a>
+				</div>
+			</div>
+		</div>
+		<div class="container footer__bottom">
+			<p class="footer__legal">Privacy Policy</p>
+			<p class="footer__year">2024 © PPT Templ Property</p>
 		</div>
 	</footer>
 }

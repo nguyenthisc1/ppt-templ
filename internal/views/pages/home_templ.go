@@ -9,8 +9,9 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
+	"ppt-templ/internal/content"
+	"ppt-templ/internal/views/components"
 	"ppt-templ/internal/views/layout"
-	"ppt-templ/internal/views/partials"
 )
 
 func Home(siteName string) templ.Component {
@@ -46,15 +47,37 @@ func Home(siteName string) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<section class=\"hero\"><div class=\"container hero__grid\"><div class=\"hero__content\"><p class=\"hero__eyebrow\">Templ + HTMX starter</p><h1 class=\"hero__title\">Build calm, structured frontends without a heavyweight toolchain.</h1><p class=\"hero__body\">This starter ships a reusable page shell, design tokens, BEM blocks, and a progressive-enhancement pattern you can keep growing.</p><div class=\"hero__actions\"><a class=\"button button--primary\" href=\"/about\">See the structure</a> <a class=\"button button--secondary\" href=\"/contact\">Open the docs</a></div></div><div class=\"hero-card\"><p class=\"hero-card__label\">What ships first</p><ul class=\"hero-card__list\"><li class=\"hero-card__item\">Reusable header, nav, main, and footer shell</li><li class=\"hero-card__item\">Critical CSS, CSS preload, and deferred JavaScript</li><li class=\"hero-card__item\">HTMX fragment route with graceful direct access fallback</li></ul></div></div></section><section class=\"section\"><div class=\"container\"><div class=\"section__heading\"><p class=\"section__eyebrow\">Design system baseline</p><h2 class=\"section__title\">CSS tokens and blocks stay simple on purpose.</h2></div><div class=\"card-grid\"><article class=\"card\"><h3 class=\"card__title\">Token-led styling</h3><p class=\"card__body\">Primary and secondary brand colors, spacing, radius, type scale, and surfaces are declared once and reused through the interface.</p></article><article class=\"card\"><h3 class=\"card__title\">BEM ownership</h3><p class=\"card__body\">Each component keeps clear blocks, elements, and modifiers, making it easier to extend pages without styles leaking across sections.</p></article><article class=\"card\"><h3 class=\"card__title\">Progressive enhancement</h3><p class=\"card__body\">HTMX handles targeted swaps while normal navigation and server-rendered content stay reliable when JavaScript is unavailable.</p></article></div></div></section><section class=\"section section--accent\"><div class=\"container highlight\"><div class=\"highlight__intro\"><p class=\"section__eyebrow\">HTMX fragment demo</p><h2 class=\"section__title\">Swap only the content panel, not the whole page.</h2><p class=\"section__copy\">The buttons below call the same server endpoint. HTMX swaps the panel in place, while direct visits still render a full page for safe fallback behavior.</p><div class=\"highlight-controls\" role=\"group\" aria-label=\"Audience presets\"><button class=\"button button--ghost\" hx-get=\"/fragments/highlight?audience=founders\" hx-target=\"#highlight-panel\" hx-swap=\"outerHTML\" type=\"button\">Founders</button> <button class=\"button button--ghost\" hx-get=\"/fragments/highlight?audience=teams\" hx-target=\"#highlight-panel\" hx-swap=\"outerHTML\" type=\"button\">Teams</button> <button class=\"button button--ghost\" hx-get=\"/fragments/highlight?audience=marketers\" hx-target=\"#highlight-panel\" hx-swap=\"outerHTML\" type=\"button\">Marketers</button></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<section class=\"hero\"><div class=\"container hero__grid\"><div class=\"hero__content\"><p class=\"hero__eyebrow\">Luxury property advisors</p><h1 class=\"hero__title\">Find standout homes, launch-stage projects, and market-ready opportunities.</h1><p class=\"hero__body\">This property starter now supports curated listings, project discovery, a market news section, and a built-in contact modal for faster lead capture.</p><div class=\"hero__actions\"><button class=\"button button--primary\" type=\"button\" data-open-contact>Book a consultation</button> <a class=\"button button--secondary\" href=\"/listings\">Browse listings</a></div></div><div class=\"hero-showcase\"><img class=\"hero-showcase__image\" src=\"/assets/img/hero.avif\" alt=\"Modern luxury property living room\"><div class=\"hero-showcase__panel\"><p class=\"hero-showcase__eyebrow\">This season</p><h2 class=\"hero-showcase__title\">Signature homes in Thu Thiem, Thao Dien, and District 1</h2><p class=\"hero-showcase__body\">Use the updated navigation to move between active listings, projects, and editorial content.</p></div></div></div></section><section class=\"section\"><div class=\"container\"><div class=\"section__heading\"><p class=\"section__eyebrow\">Featured listings</p><h2 class=\"section__title\">A curated set of current homes and rental opportunities.</h2></div><div class=\"property-grid property-grid--compact\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = partials.HighlightPanel("founders").Render(ctx, templ_7745c5c3_Buffer)
+			for _, item := range content.Listings()[:3] {
+				templ_7745c5c3_Err = components.ListingCard(item).Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</div></div></section><section class=\"section section--accent\"><div class=\"container split-panel\"><div class=\"split-panel__intro\"><p class=\"section__eyebrow\">Project launches</p><h2 class=\"section__title\">Track communities that are pre-launch, launching now, or ready for handover.</h2><p class=\"section__copy\">The projects section includes searchable and stage-based filtering so clients can move quickly from browsing to shortlisting.</p><a class=\"button button--primary\" href=\"/projects\">Explore projects</a></div><div class=\"project-grid project-grid--compact\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</div></section>")
+			for _, item := range content.Projects()[:2] {
+				templ_7745c5c3_Err = components.ProjectCard(item).Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</div></div></section><section class=\"section\"><div class=\"container\"><div class=\"section__heading\"><p class=\"section__eyebrow\">Latest news</p><h2 class=\"section__title\">Editorial coverage that supports buyers, sellers, and investors.</h2></div><div class=\"news-grid news-grid--compact\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			for _, article := range content.News()[:3] {
+				templ_7745c5c3_Err = components.NewsCard(article).Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</div></div></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -62,7 +85,7 @@ func Home(siteName string) templ.Component {
 		})
 		templ_7745c5c3_Err = layout.Base(layout.PageProps{
 			Title:       "Home",
-			Description: "A minimal Go-native starter using templ, HTMX, BEM conventions, and performance-minded defaults.",
+			Description: "Property homepage for premium listings, projects, and market news with a direct inquiry modal.",
 			SiteName:    siteName,
 			BodyClass:   "page--home",
 		}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
