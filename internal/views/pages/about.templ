@@ -1,0 +1,45 @@
+package pages
+
+import "ppt-templ/internal/views/layout"
+
+templ About(siteName string) {
+	@layout.Base(layout.PageProps{
+		Title:       "About",
+		Description: "Project structure, templ layout composition, and frontend conventions for the starter.",
+		SiteName:    siteName,
+		BodyClass:   "page--about",
+	}) {
+		<section class="section page-hero">
+			<div class="container narrow-stack">
+				<p class="section__eyebrow">How the starter is organized</p>
+				<h1 class="section__title">A small structure that is easy to extend.</h1>
+				<p class="section__copy">Layouts live separately from shared UI, pages stay thin, and the HTTP layer exposes full-page routes alongside focused HTMX fragment endpoints.</p>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container two-column">
+				<article class="card card--tall">
+					<h2 class="card__title">Server-side structure</h2>
+					<ul class="card-list">
+						<li class="card-list__item"><strong class="card-list__label">`cmd/web`</strong> starts the app and server.</li>
+						<li class="card-list__item"><strong class="card-list__label">`internal/http`</strong> owns routing and rendering.</li>
+						<li class="card-list__item"><strong class="card-list__label">`internal/views/layout`</strong> defines the shared page shell.</li>
+						<li class="card-list__item"><strong class="card-list__label">`internal/views/components`</strong> stores reusable UI blocks.</li>
+						<li class="card-list__item"><strong class="card-list__label">`internal/views/pages`</strong> contains full-page templates.</li>
+					</ul>
+				</article>
+				<article class="card card--tall">
+					<h2 class="card__title">Frontend rules</h2>
+					<ul class="card-list">
+						<li class="card-list__item">Use tokens before hard-coded values.</li>
+						<li class="card-list__item">Prefer one BEM block per responsibility.</li>
+						<li class="card-list__item">Reach for modifiers before special-case descendant selectors.</li>
+						<li class="card-list__item">Keep HTMX swaps focused on one target region.</li>
+						<li class="card-list__item">Inline only the smallest shell-critical CSS.</li>
+					</ul>
+				</article>
+			</div>
+		</section>
+	}
+}

@@ -1,0 +1,28 @@
+package pages
+
+import (
+	"ppt-templ/internal/views/layout"
+	"ppt-templ/internal/views/partials"
+)
+
+templ HighlightPreview(siteName string, audience string) {
+	@layout.Base(layout.PageProps{
+		Title:       "About",
+		Description: "Full-page fallback for the HTMX highlight panel endpoint.",
+		SiteName:    siteName,
+		BodyClass:   "page--fragment-preview",
+	}) {
+		<section class="section page-hero">
+			<div class="container narrow-stack">
+				<p class="section__eyebrow">Fragment fallback</p>
+				<h1 class="section__title">This route returns a partial for HTMX and a full page when visited directly.</h1>
+				<p class="section__copy">The server keeps one endpoint and chooses the correct response shape based on the request, so the interaction remains resilient.</p>
+			</div>
+		</section>
+		<section class="section">
+			<div class="container">
+				@partials.HighlightPanel(audience)
+			</div>
+		</section>
+	}
+}

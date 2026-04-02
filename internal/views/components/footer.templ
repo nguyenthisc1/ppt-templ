@@ -1,0 +1,15 @@
+package components
+
+import "time"
+
+templ Footer() {
+	<footer class="footer">
+		<div class="container footer__inner">
+			<div class="footer__meta">
+				<p class="footer__title">PPT Templ Starter</p>
+				<p class="footer__copy">Server-rendered pages with `templ`, progressive enhancement with `htmx`, and plain CSS conventions.</p>
+			</div>
+			<p class="footer__year">© { time.Now().Year() }</p>
+		</div>
+	</footer>
+}

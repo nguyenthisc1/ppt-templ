@@ -1,0 +1,49 @@
+package pages
+
+import "ppt-templ/internal/views/layout"
+
+templ Contact(siteName string) {
+	@layout.Base(layout.PageProps{
+		Title:       "Contact",
+		Description: "Starter conventions, implementation checklist, and next steps for new pages.",
+		SiteName:    siteName,
+		BodyClass:   "page--contact",
+	}) {
+		<section class="section page-hero">
+			<div class="container narrow-stack">
+				<p class="section__eyebrow">Conventions in practice</p>
+				<h1 class="section__title">Use this page as a starting point for new content routes.</h1>
+				<p class="section__copy">Each page should reuse the shared shell, stick to the token palette, and compose blocks instead of redefining layout primitives.</p>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container contact-grid">
+				<article class="card">
+					<h2 class="card__title">Page checklist</h2>
+					<ul class="card-list">
+						<li class="card-list__item">Set a page title, description, and body modifier.</li>
+						<li class="card-list__item">Compose from shared blocks before adding page-only styles.</li>
+						<li class="card-list__item">Keep navigation and footer untouched unless the shell changes for every page.</li>
+					</ul>
+				</article>
+				<article class="card">
+					<h2 class="card__title">Performance checklist</h2>
+					<ul class="card-list">
+						<li class="card-list__item">Preserve the critical CSS slice in the layout.</li>
+						<li class="card-list__item">Load the primary stylesheet through preload + stylesheet tags.</li>
+						<li class="card-list__item">Keep scripts deferred and small.</li>
+					</ul>
+				</article>
+				<article class="card">
+					<h2 class="card__title">Next extension points</h2>
+					<ul class="card-list">
+						<li class="card-list__item">Add page-specific blocks when shared components stop fitting.</li>
+						<li class="card-list__item">Add additional HTMX endpoints for forms or scoped content refreshes.</li>
+						<li class="card-list__item">Introduce asset fingerprinting later if caching becomes important.</li>
+					</ul>
+				</article>
+			</div>
+		</section>
+	}
+}

@@ -1,0 +1,52 @@
+package components
+
+type NavItem struct {
+	Label string
+	Href  string
+	Key   string
+}
+
+func navItems() []NavItem {
+	return []NavItem{
+		{Label: "Home", Href: "/", Key: "Home"},
+		{Label: "About", Href: "/about", Key: "About"},
+		{Label: "Contact", Href: "/contact", Key: "Contact"},
+	}
+}
+
+func navLinkClass(currentTitle string, item NavItem) string {
+	className := "nav__link"
+	if currentTitle == item.Key {
+		className += " nav__link--current"
+	}
+	return className
+}
+
+templ Header(currentTitle string) {
+	<header class="header">
+		<div class="container header__inner">
+			<a class="brand" href="/">
+				<span class="brand__mark">PT</span>
+				<span class="brand__text">PPT Templ</span>
+			</a>
+			<button
+				class="nav-toggle"
+				type="button"
+				data-nav-toggle
+				aria-expanded="false"
+				aria-controls="site-nav"
+			>
+				Menu
+			</button>
+			<nav class="nav" id="site-nav" data-nav>
+				<ul class="nav__list">
+					for _, item := range navItems() {
+						<li class="nav__item">
+							<a class={ navLinkClass(currentTitle, item) } href={ item.Href }>{ item.Label }</a>
+						</li>
+					}
+				</ul>
+			</nav>
+		</div>
+	</header>
+}
