@@ -18,25 +18,21 @@ Property-focused Go-native starter for server-rendered pages with [`templ`](http
    ```bash
    npm install
    ```
-3. Generate templates:
+3. Start the app with npm scripts:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Or run the manual Go flow:
 
    ```bash
    templ generate
-   ```
-
-4. Sync Go modules:
-
-   ```bash
    go mod tidy
-   ```
-
-5. Run the app:
-
-   ```bash
    go run ./cmd/web
    ```
 
-6. Open `http://localhost:8080`.
+5. Open `http://localhost:8080`.
 
 ## Project Structure
 
@@ -91,3 +87,15 @@ Run frontend linting with:
 ```bash
 npm run lint:js
 ```
+
+## Common Commands
+
+```bash
+npm run dev
+npm run start
+npm run build
+```
+
+- `npm run dev`: generate `templ` files and run the Go server
+- `npm run start`: run the Go server directly
+- `npm run build`: generate `templ` files and build the binary to `bin/web`
